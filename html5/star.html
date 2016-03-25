@@ -1,0 +1,53 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<script>
+window.onload=function()
+{
+	var canvas=document.getElementById("canvas");
+	var context=canvas.getContext("2d");
+	
+	canvas.width=1024;
+	canvas.height=500;
+	
+	context.fillStyle="#000";
+	context.fillRect(0,0,canvas.width,canvas.height);
+	
+	for(var i=0;i<150;i++)
+	{
+		var r=6+parseInt(Math.random()*4);
+		var x=parseInt((canvas.width-2*r)*Math.random()+r);
+		var y=parseInt((canvas.height*0.5)*Math.random()+r);
+		var rot=180*Math.random();
+		drawStar(context,r,r/2,x,y,rot)
+	}
+}
+function drawStar(cxt,outR,innerR,x,y,rot)
+{
+	cxt.beginPath();
+	for(var i=0;i<5;i++)
+	{
+		cxt.lineTo(x+outR*Math.cos(Math.PI/180*(18+(i*72)-rot)),
+		y-outR*Math.sin(2*Math.PI/360*(18+(i*72)-rot)));
+		cxt.lineTo(x+innerR*Math.cos(2*Math.PI/360*(54+(i*72)-rot)),
+		y-innerR*Math.sin(2*Math.PI/360*(54+(i*72)-rot)))
+	}
+	cxt.closePath();
+	
+	cxt.fillStyle="#fb3";
+	cxt.strokeStyle="#fd5";
+	cxt.lineWidth=3;
+	cxt.lineJoin="round";
+	cxt.fill();
+	cxt.stroke();
+}
+
+</script>
+</head>
+
+<body>
+<canvas id="canvas" style="border:1px solid red">hahaha</canvas>
+</body>
+</html>

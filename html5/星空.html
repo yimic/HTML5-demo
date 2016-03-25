@@ -1,0 +1,130 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<script>
+window.onload=function()
+{
+	var canvas=document.getElementById("canvas");
+	var context=canvas.getContext("2d");
+	canvas.width=1300;
+	canvas.height=550;
+	
+	
+//	var gra=context.createLinearGradient(0,0,0,canvas.height);
+//	gra.addColorStop(0.0,"#000");
+//	gra.addColorStop(1.0,"#035");
+	var gra=context.createRadialGradient(canvas.width/2,canvas.height,0,canvas.width/2,canvas.height,700);
+	gra.addColorStop(0.0,"#035");
+	gra.addColorStop(1.0,"#000");
+	context.fillStyle=gra;
+	context.fillRect(0,0,canvas.width,canvas.height);
+	
+	for(var i=0;i<130;i++)
+	{
+		drawStar(Math.random()*3+2,Math.random()*canvas.width,Math.random()*canvas.height*0.65,Math.random()*360,context);
+	}
+		
+	drawMoon(context,2,1000,100,60,-20,"#fb5");
+	
+	land(context);
+	
+}
+//星星
+function drawStar(r,x,y,rot,cxt)
+{
+	cxt.save();
+	
+	cxt.translate(x,y);
+//	cxt.transform(bigx,0,0,bigx,x,y)
+	cxt.rotate(rot/180*Math.PI);
+	cxt.scale(r,r)
+	
+	cxt.fillStyle="#fb3";
+	cxt.strokeStyle="#fd5";
+//	cxt.lineWidth=3;
+//	cxt.lineJoin="round";
+	
+	
+	starPath(cxt);
+	
+	cxt.fill();
+	cxt.stroke();
+	cxt.restore();
+	
+}
+function starPath(cxt)
+{
+	cxt.beginPath();
+
+		for(var i=0;i<5;i++)
+	{
+		cxt.lineTo(
+		Math.cos(Math.PI/180*(18+(i*72))),
+		-Math.sin(Math.PI/180*(18+(i*72)))
+					);
+		cxt.lineTo(
+		0.5*Math.cos(Math.PI/180*(54+(i*72))),
+		-0.5*Math.sin(Math.PI/180*(54+(i*72)))
+					)
+	}
+
+
+	cxt.closePath();
+}
+//月亮
+function drawMoon(cxt,d,x,y,R,deg,fillcolor)
+{
+	
+	
+	cxt.save();
+	cxt.translate(x,y);
+	cxt.rotate(deg*Math.PI/180);
+	cxt.scale(R,R);
+	moonPath(cxt,d)
+	
+	cxt.fillStyle=fillcolor||"#fb5";
+	cxt.fill();
+	cxt.restore();
+}
+function moonPath(cxt,d)
+{
+	cxt.beginPath();
+	cxt.arc(0,0,1,0.5*Math.PI,1.5*Math.PI,true);
+	cxt.moveTo(0,-1);
+	cxt.arcTo(d,0,0,1,dis(d,0,0,-1)/d);
+	cxt.closePath();
+}
+function dis(x1,y1,x2,y2)
+{
+	var dis=Math.sqrt((x1-x2)*(x1-x2)+(y1-y2)*(y1-y2));
+	return dis;
+}
+//绿地
+function land(cxt)
+{
+	cxt.save();
+	cxt.beginPath();
+	cxt.moveTo(0,400);
+	cxt.bezierCurveTo(500,300,700,500,1300,400);
+	cxt.lineTo(1300,550);
+	cxt.lineTo(0,550);
+	cxt.closePath();
+	
+	
+	var gra=cxt.createLinearGradient(0,550,0,400);
+	gra.addColorStop(0.0,"#030");
+	gra.addColorStop(1.0,"#580");
+	cxt.fillStyle=gra;
+	cxt.fill();
+	cxt.stroke();
+	cxt.restore();
+}
+</script>
+</head>
+
+<body>
+<canvas id="canvas" style="border:1px solid red"></canvas>
+</body>
+</html>

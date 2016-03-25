@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<script>
+window.onload=function()
+{
+	document.getElementById("canvas");
+	var context=canvas.getContext("2d");
+	canvas.width=1300;canvas.height=550;
+	
+	context.beginPath();
+	
+	context.moveTo(200,200);
+//	context.quadraticCurveTo(300,200,200,300);
+	context.bezierCurveTo(120,0,480,0,400,200);
+	context.moveTo(200,100);
+//	context.quadraticCurveTo(250,200,200,300);
+	
+	
+//	context.closePath();
+	context.stroke();
+}
+</script>
+</head>
+
+<body>
+<canvas id="canvas"></canvas>
+</body>
+</html>

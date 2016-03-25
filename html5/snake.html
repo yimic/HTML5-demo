@@ -1,0 +1,122 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style>
+#div1{
+	width:1300px;height:550px;border:1px solid red;position:relative;
+	}
+#snake{
+	width:10px;height:10px;background:black;position:absolute;
+	top:100px;left:100px;
+	}
+#point{
+	width:10px;height:10px;position:absolute;top:0;left:0;background:blue;
+}
+</style>
+<script>
+window.onload=function()
+{
+	var oDiv=document.getElementById("div1");
+	var oSnake=document.getElementById("snake");
+	var oPoint=document.getElementById("point");
+	
+	
+	document.onkeydown=function(ev)
+	{
+		var oEvent=ev||event;
+		
+		//键盘控制运动
+		keyMove(oSnake)
+/*		if(oEvent.keyCode==37)
+		{
+			oSnake.style.left=oSnake.offsetLeft-10+"px";
+		}
+		if(oEvent.keyCode==39)
+		{
+			oSnake.style.left=oSnake.offsetLeft+10+"px";
+		}
+		if(oEvent.keyCode==38)
+		{
+			oSnake.style.top=oSnake.offsetTop-10+"px";
+		}
+		if(oEvent.keyCode==40)
+		{
+			oSnake.style.top=oSnake.offsetTop+10+"px";
+		}
+	*/	
+		//控制边界
+		if(oSnake.offsetLeft<=0)
+		{
+			oSnake.style.left=0+"px";
+		}
+		if(oSnake.offsetLeft>=oDiv.offsetWidth)
+		{
+			oSnake.style.left=oDiv.offsetWidth-10+"px";
+		}
+		if(oSnake.offsetTop<=0)
+		{
+			oSnake.style.top=0+"px"
+		}
+		if(oSnake.offsetTop>=oDiv.offsetHeight)
+		{
+			oSnake.style.top=oDiv.offsetHeight-10+"px";
+		}
+			
+		return false;
+	}
+}
+
+//键盘控制函数
+function keyMove(obj)
+{
+	var direction={left:false,right:false,top:false,bottom:false};
+	setInterval(function()
+	{
+		if(direction.left)
+		{
+			obj.style.left=obj.offsetLeft-5+"px";
+		}
+		if(direction.right)
+		{
+			obj.style.left=obj.offsetLeft+5+"px";
+		}
+		if(direction.top)
+		{
+			obj.style.top=obj.offsetTop-5+"px";
+		}
+		if(direction.bottom)
+		{
+			obj.style.top=obj.offsetTop+5+"px";
+		}
+
+	},30);
+	
+	document.onkeydown=function(ev)
+	{
+		var oEvent=ev||event;
+		if(oEvent.keyCode==37)
+		{direction.left=true;}
+		if(oEvent.keyCode==39)
+		{direction.right=true;}
+		if(oEvent.keyCode==38)
+		{direction.top=true;}
+		if(oEvent.keyCode==40)
+		{direction.bottom=true;}
+	}
+	document.onkeyup=function()
+	{
+		direction={left:false,right:false,top:false,bottom:false};
+	}
+}
+</script>
+</head>
+
+<body>
+<div id="div1">
+	<div id="snake"></div>
+    <div id="point"></div>
+</div>
+</body>
+</html>

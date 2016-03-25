@@ -1,0 +1,149 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style>
+table{border-collapse:collapse;}
+td,th{width:100px;height:30px;text-align:center;}
+</style>
+<script>
+window.onload=function()
+{
+	var oBut1=document.getElementById("but1");
+	var oBut2=document.getElementById("but2");
+	var oSave=document.getElementById("save");
+	var oStu=document.getElementById("stu");
+	var oTbody=oStu.getElementsByTagName("tbody")[0];
+	var oTd=oTbody.getElementsByTagName("td");
+	
+	for(var i=0;i<oTd.length;i++)
+	{
+		oTd[i].contentEditable=true;
+	}
+	//创建数据库 和表
+	var dataBase=openDatabase("student","1.0","学生表",1024*1024,function(){})
+			if(dataBase)
+			{
+//				alert("数据库创建成功")
+			}
+			else
+			{
+//				alert("数据库创建失败")
+			}
+			dataBase.transaction(function(tx)
+			{
+				tx.executeSql(
+					"create table if not exists stu(name TEXT,age REAL ,class TEXT)",
+					[],
+					function()
+					{
+//						alert("表创建成功")
+					},
+					function()
+					{
+//						alert("表创建失败")
+					}
+				)
+			})
+			
+	oBut1.onclick=function()
+	{
+		var tr1=document.createElement("tr");
+		var td1=document.createElement("td");
+		var td2=document.createElement("td");
+		var td3=document.createElement("td");
+		tr1.appendChild(td1);tr1.appendChild(td2);tr1.appendChild(td3);
+		oTbody.appendChild(tr1);
+		td1.contentEditable=true;
+		td2.contentEditable=true;
+		td3.contentEditable=true;
+	}
+	oBut2.onclick=function()
+	{
+		var otr=oStu.tBodies[0].rows[oStu.tBodies[0].rows.length-1];
+		var x=otr.getElementsByTagName("td")[0].innerHTML;
+		oStu.tBodies[0].removeChild(oStu.tBodies[0].rows[oStu.tBodies[0].rows.length-1]);
+		alert(x)
+		dataBase.transaction(function(tx)
+		{
+			tx.executeSql(
+				"delete from stu where name=?",
+				[x],
+				function()
+				{alert("数据删除成功")},
+				function(tx,error)
+				{alert("删除失败"+error.message)}
+			)
+		})
+	}
+	oSave.onclick=function()
+	{
+//添加数据  保存按钮
+		var rows=oTbody.getElementsByTagName("tr");
+		for(var i=0;i<rows.length;i++)
+		{
+			var cells=rows[i].getElementsByTagName("td");
+			dataBase.transaction(function(tx)
+			{
+				tx.executeSql(
+					"insert into stu(name,age,class) values(?,?,?)",
+					[cells[0].innerHTML,cells[1].innerHTML,cells[2].innerHTML],
+					function()
+					{alert("数据添加成功")},
+					function(tx, error)
+					{alert('添加数据失败:'+error.message)}
+				)
+			})
+
+		}
+	}
+		//取出数据
+		dataBase.transaction(function(tx)
+		{
+			tx.executeSql(
+				"select * from stu",
+				[],
+				function(tx,result)
+				{
+					for(var i=0;i<result.rows.length;i++)
+					{
+						var tr1=document.createElement("tr");
+						var td1=document.createElement("td");
+						var td2=document.createElement("td");
+						var td3=document.createElement("td");
+						td1.innerHTML=result.rows.item(i)["name"];
+						td2.innerHTML=result.rows.item(i)["age"];
+						td3.innerHTML=result.rows.item(i)["class"];
+						tr1.appendChild(td1);tr1.appendChild(td2);tr1.appendChild(td3);
+						oTbody.appendChild(tr1);
+					}
+				},
+				function(tx,error)
+				{
+					alert("数据读取失败"+error.message)
+				}
+			)
+		})
+		
+		
+}
+</script>
+</head>
+
+<body>
+<table  border="1" cellspacing="0" id="stu">
+    <caption>学生信息表</caption>
+    <thead>
+        <tr>
+            <th>姓名</th><th>年龄</th><th>班级</th>
+        </tr>
+    </thead>
+    <tbody>
+    </tbody>
+</table>
+<input type="button" value="增加一行" id="but1" />
+<input type="button" value="删除一行" id="but2" />
+<input type="button" value="保存" id="save" />
+</body>
+</html>

@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<script>
+var star={x:200,y:200,radius:200,v:10,rot:10}
+window.onload=function()
+{
+	var canvas=document.getElementById("canvas");
+	var context=canvas.getContext("2d");
+	canvas.width=1300;
+	canvas.height=550;
+	setInterval(function()
+	{
+		draw(context);
+		update(context);
+	},50);
+}
+function update(cxt)
+{
+	cxt.save();
+	star.x+=5;star.y+=5;
+//	star.radius+=5;
+	star.rot+=5;
+	cxt.restore();
+}
+function draw(cxt)
+{
+	
+//	cxt.clearRect(0,0,cxt.canvas.width,cxt.canvas.height);
+	
+	cxt.save();
+	cxt.beginPath();
+//	cxt.fillStyle="#000";
+	cxt.fillRect(0,0,cxt.canvas.width,cxt.canvas.height);
+
+
+	cxt.beginPath();
+	
+	cxt.rotate(star.rot/180*Math.PI);
+//	starPath(cxt);
+	cxt.fillStyle="#fff";
+
+	for(var i=0;i<5;i++)
+	{
+		cxt.lineTo(star.x+star.radius*Math.cos(Math.PI/180*(18+(i*72))),
+		star.y-star.radius*Math.sin(Math.PI/180*(18+(i*72))));
+		cxt.lineTo(star.x+star.radius*0.5*Math.cos(Math.PI/180*(54+(i*72))),
+		star.y-star.radius*0.5*Math.sin(Math.PI/180*(54+(i*72))))
+	}
+	cxt.closePath();
+	cxt.fillStyle="#fff";
+//	cxt.arc(200,200,100,0,2*Math.PI);
+//	cxt.fillStyle="#fff"
+	cxt.fill();
+	cxt.clip();
+	
+//	cxt.beginPath();
+	cxt.font="bold 90px Arial";
+	cxt.textBaseline="middle";
+	cxt.fillStyle="#058";
+	cxt.fillText("canvas",200,100);
+	cxt.fillText("canvas",200,200);
+	cxt.fillText("canvas",200,300);
+
+	cxt.restore();
+}
+function starPath(cxt)
+{
+	cxt.beginPath();
+	for(var i=0;i<5;i++)
+	{
+		cxt.lineTo(Math.cos(Math.PI/180*(18+(i*72))),
+		-Math.sin(Math.PI/180*(18+(i*72))));
+		cxt.lineTo(0.5*Math.cos(Math.PI/180*(54+(i*72))),
+		-0.5*Math.sin(Math.PI/180*(54+(i*72))))
+	}
+	cxt.closePath();
+}
+
+</script>
+</head>
+
+<body>
+<canvas id="canvas"></canvas>
+</body>
+</html>

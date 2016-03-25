@@ -1,0 +1,194 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style>
+
+</style>
+<script>
+window.onload=function()
+{
+	var canvas=document.getElementById("canvas");
+	var context=canvas.getContext("2d");
+	canvas.width=1300;canvas.height=750;
+	
+	context.fillStyle="#666";
+	context.fillRect(0,0,canvas.width,canvas.height);
+	
+	draw(context);
+}
+function draw(cxt)
+{
+
+	cxt.fillStyle="#fff";
+	
+	
+		//胳膊左
+	cxt.save();
+	cxt.translate(395,230);
+	cxt.rotate(20/180*Math.PI);
+	cxt.scale(50,140);
+	circlePath(cxt);
+	cxt.fillStyle="#fff"
+	cxt.fill();
+	cxt.restore();
+	cxt.stroke()
+		//胳膊右
+	cxt.save();
+	cxt.translate(605,230);
+	cxt.rotate(-20/180*Math.PI);
+	cxt.scale(50,140);
+	circlePath(cxt);
+	cxt.fillStyle="#fff"
+	cxt.fill();
+	cxt.restore();
+	cxt.stroke();
+	
+	//手指左
+	cxt.save()
+/*	cxt.translate(340,358);
+	cxt.rotate(-20/180*Math.PI);
+	cxt.scale(6,15);
+	circlePath(cxt);
+*/
+	cxt.beginPath();
+	cxt.moveTo(330,338);
+    cxt.bezierCurveTo(330,385,360,390,350,358);
+	
+	cxt.fillStyle="#fff";
+	cxt.fill();
+	cxt.stroke();
+//	cxt.restore();
+
+	
+	
+	//手指右
+	cxt.beginPath();
+	cxt.moveTo(670,338);
+    cxt.bezierCurveTo(670,385,640,390,650,358);
+	
+	cxt.fillStyle="#fff";
+	cxt.fill();
+	cxt.stroke();
+
+		
+	//身体1
+	cxt.save();
+/*	cxt.translate(500,170);
+	cxt.scale(100,100);
+	circlePath(cxt);
+	cxt.fill();
+*/
+	cxt.beginPath();
+	cxt.moveTo(400,180);
+	cxt.bezierCurveTo(400,40,600,40,600,180);
+		cxt.fillStyle="#fff";
+	cxt.fill();
+
+	cxt.restore();
+	cxt.strokeStyle="#333";
+	cxt.stroke();
+	
+	
+		
+	//腿left
+	cxt.beginPath();
+	cxt.moveTo(400,450);
+	cxt.lineTo(400,500);
+	cxt.bezierCurveTo(400,570,440,580,440,580);
+	cxt.lineTo(485,580)
+	cxt.arc(485,570,10,0.5*Math.PI,0,true);
+	cxt.lineTo(495,480)
+//	cxt.closePath();
+	cxt.strokeStyle="#333";
+	cxt.fillStyle="#fff";
+	cxt.fill();
+	cxt.stroke();
+	//腿right
+	cxt.beginPath();
+	cxt.moveTo(600,450);
+	cxt.lineTo(600,500);
+	cxt.bezierCurveTo(600,570,560,580,560,580);
+	cxt.lineTo(515,580)
+	cxt.arc(515,570,10,0.5*Math.PI,Math.PI);
+	cxt.lineTo(505,480)
+//	cxt.closePath();
+	cxt.strokeStyle="#333";
+	cxt.fillStyle="#fff";
+	cxt.fill();
+	cxt.stroke();
+
+
+		//身体2
+	cxt.save();
+/*	cxt.translate(500,280);
+	cxt.scale(140,160);
+	circlePath(cxt);
+	cxt.fill();
+*/	cxt.beginPath();
+	cxt.moveTo(400,180);
+	cxt.bezierCurveTo(200,600,800,600,600,180);
+	cxt.fillStyle="#fff";
+	cxt.fill();
+	cxt.restore();
+	
+	cxt.strokeStyle="#333";
+	cxt.stroke();
+
+
+
+	
+		//头
+	cxt.fillStyle="#fff";
+	cxt.save();
+	cxt.translate(500,60);
+	cxt.scale(50,30);
+	circlePath(cxt);
+	cxt.fill();
+	cxt.restore();
+	cxt.strokeStyle="#333";
+	cxt.stroke();
+	
+	
+	//眼睛1
+	cxt.save();
+	cxt.translate(480,60);
+	cxt.scale(6,6);
+	circlePath(cxt);
+	cxt.fillStyle="#000";
+	cxt.fill();
+	cxt.restore();
+	//眼睛2
+	cxt.save();
+	cxt.translate(520,60);
+	cxt.scale(6,6);
+	circlePath(cxt);
+	cxt.fillStyle="#000";
+	cxt.fill();
+	cxt.restore();
+	//眼睛3
+	cxt.save();
+	cxt.beginPath();
+	cxt.moveTo(486,60);
+	cxt.lineTo(514,60);
+	cxt.closePath();
+	cxt.strokeStyle="#000";
+	cxt.linewidth=3;
+	cxt.stroke();
+	cxt.restore();
+	
+}
+function circlePath(cxt)
+{
+	cxt.beginPath();
+	cxt.arc(0,0,1,0,2*Math.PI);
+	cxt.closePath();
+}
+</script>
+</head>
+
+<body>
+<canvas id="canvas"></canvas>
+</body>
+</html>

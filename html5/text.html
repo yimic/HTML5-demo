@@ -1,0 +1,78 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<script>
+window.onload=function()
+{
+	var canvas=document.getElementById("canvas");
+	var context=canvas.getContext("2d");
+	canvas.width=1300;
+	canvas.height=550;
+	
+	
+//	var gra=context.createLinearGradient(0,0,0,canvas.height);
+//	gra.addColorStop(0.0,"#000");
+//	gra.addColorStop(1.0,"#035");
+	var gra=context.createRadialGradient(canvas.width/2,canvas.height,0,canvas.width/2,canvas.height,700);
+	gra.addColorStop(0.0,"#035");
+	gra.addColorStop(1.0,"#000");
+	context.fillStyle=gra;
+	context.fillRect(0,0,canvas.width,canvas.height);
+	
+	for(var i=0;i<130;i++)
+	{
+		drawStar(Math.random()*3+3,Math.random()*canvas.width,Math.random()*canvas.height*0.5,Math.random()*360,context);
+	}
+	
+}
+function drawStar(r,x,y,rot,cxt)
+{
+	cxt.save();
+	
+	cxt.translate(x,y);
+//	cxt.transform(bigx,0,0,bigx,x,y)
+	cxt.rotate(rot/180*Math.PI);
+	cxt.scale(r,r)
+	
+	cxt.fillStyle="#fb3";
+	cxt.strokeStyle="#fd5";
+//	cxt.lineWidth=3;
+//	cxt.lineJoin="round";
+	
+	
+	starPath(cxt);
+	
+	cxt.fill();
+	cxt.stroke();
+	cxt.restore();
+	
+}
+function starPath(cxt)
+{
+	cxt.beginPath();
+
+		for(var i=0;i<5;i++)
+	{
+		cxt.lineTo(
+		Math.cos(Math.PI/180*(18+(i*72))),
+		-Math.sin(Math.PI/180*(18+(i*72)))
+					);
+		cxt.lineTo(
+		0.5*Math.cos(Math.PI/180*(54+(i*72))),
+		-0.5*Math.sin(Math.PI/180*(54+(i*72)))
+					)
+	}
+
+
+	cxt.closePath();
+}
+
+</script>
+</head>
+
+<body>
+<canvas id="canvas" style="border:1px solid red"></canvas>
+</body>
+</html>

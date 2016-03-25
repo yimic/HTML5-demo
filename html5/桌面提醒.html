@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<script>
+window.onload=function()
+{
+	var oMusic=document.getElementById("music");
+	if(window.webkitNotifications)
+	{
+		window.webkitNotifications.requestPermission();
+		if(window.webkitNotifications.checkPermision()==0)
+		{
+			var obj=window.webkitNotifications.createNotification("1.png","您有新消息","哈哈");
+			obj.tag="1";//消息标签  防止重复弹出
+			obj.show();
+			obj.onshow=function()
+			{
+				oMusic.play();
+			}
+		}
+	}
+}
+</script>
+</head>
+
+<body>
+<audio id="music" src="1.mp3"></audio>
+</body>
+</html>

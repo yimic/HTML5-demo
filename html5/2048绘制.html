@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<script>
+window.onload=function()
+{
+	var canvas=document.getElementById("canvas");
+	var context=canvas.getContext("2d");
+	
+	canvas.width=1024;
+	canvas.height=550;
+	
+	context.lineWidth=10;
+	drawRoundRect(10,360,360,context,300,50,"#8b7d6b","#777");
+	for(var i=0;i<4;i++)
+	{
+		for(var j=0;j<4;j++)
+		{
+			drawRoundRect(10,70,70,context,10+90*j+300,10+90*i+50,"#cdc1c5","#8b7d6b")
+		}
+	}
+	context.stroke();
+	
+}
+function drawRoundRect(r,width,height,cxt,x,y,fillcolor,strokecolor)
+{
+	cxt.fillStyle=fillcolor;
+	cxt.strokeStyle=strokecolor;
+	cxt.save();
+	cxt.translate(x,y);
+	
+	roundRectPath(width,height,r,cxt);
+	
+	cxt.restore();
+	cxt.fill();
+	cxt.stroke();
+}
+function roundRectPath(width,height,r,cxt)
+{
+	cxt.beginPath();
+	cxt.arc(r+width,r+height,r,0,0.5*Math.PI);
+	cxt.lineTo(r,2*r+height);
+	cxt.arc(r,r+height,r,0.5*Math.PI,Math.PI);
+	cxt.lineTo(0,r);
+	cxt.arc(r,r,r,Math.PI,1.5*Math.PI);
+	cxt.lineTo(r+width,0);
+	cxt.arc(r+width,r,r,Math.PI*1.5,Math.PI*2);
+	cxt.closePath();
+}
+</script>
+</head>
+
+<body>
+<canvas id="canvas"></canvas>
+</body>
+</html>

@@ -1,0 +1,59 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<style>
+#canvas{border:1px solid red}
+</style>
+<script>
+window.onload=function()
+{
+	var canvas=document.getElementById("canvas");
+	var context=canvas.getContext("2d");
+	canvas.width=1324;
+	canvas.height=550;
+	
+/*	context.beginPath();
+	context.arc(400,200,100,0.5*Math.PI,1.5*Math.PI,true);
+	context.moveTo(400,100);
+	context.arcTo(600,200,400,300,100*dis(400,300,600,400)/(600-400));
+*/	
+	drawMoon(context,2,400,200,100,0,"#fb5")
+
+}
+function drawMoon(cxt,d,x,y,R,deg,fillcolor)
+{
+	
+	
+	cxt.save();
+	cxt.translate(x,y);
+	cxt.rotate(deg*Math.PI/180);
+	cxt.scale(R,R);
+	moonPath(cxt,d)
+	
+	cxt.fillStyle=fillcolor||"#fb5";
+	cxt.fill();
+	cxt.restore();
+}
+function moonPath(cxt,d)
+{
+	cxt.beginPath();
+	cxt.arc(0,0,1,0.5*Math.PI,1.5*Math.PI,true);
+	cxt.moveTo(0,-1);
+//	cxt.arcTo(d,0,0,1,dis(d,0,0,-1)/d);
+	cxt.quadraticCurveTo(1.2,0,0,1);
+	cxt.closePath();
+}
+function dis(x1,y1,x2,y2)
+{
+	var dis=Math.sqrt((x1-x2)*(x1-x2)+(y1-y2)*(y1-y2));
+	return dis;
+}
+</script>
+</head>
+
+<body>
+<canvas id="canvas"></canvas>
+</body>
+</html>

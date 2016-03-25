@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<script>
+window.onload=function()
+{
+	var canvas=document.getElementById("canvas");
+	var context=canvas.getContext("2d");//2d平面绘制
+	var tran=[{p:[{x:0,y:0},{x:400,y:400},{x:0,y:800}],color:"#FF83FA"},
+			  {p:[{x:0,y:0},{x:400,y:0},{x:200,y:200}],color:"#7171C6"},
+			  {p:[{x:400,y:0},{x:800,y:0},{x:800,y:400}],color:"#458B00"},
+			  {p:[{x:400,y:400},{x:800,y:800},{x:0,y:800}],color:"#CD3700"},
+			  {p:[{x:400,y:400},{x:600,y:200},{x:600,y:600}],color:"#CFCFCF"},
+			  {p:[{x:200,y:200},{x:400,y:0},{x:600,y:200},{x:400,y:400}],color:"#CDCD00"},
+			  {p:[{x:600,y:600},{x:600,y:200},{x:800,y:400},{x:800,y:800}],color:"#8A18D7"}
+			 ];
+	for(var i=0;i<tran.length;i++)
+	{
+		draw(tran[i],context);
+	}
+}
+function draw(obj,cxt)
+{
+	cxt.beginPath();
+	cxt.moveTo(obj.p[0].x,obj.p[0].y);
+	for(var i=1;i<obj.p.length;i++)
+	{
+		cxt.lineTo(obj.p[i].x,obj.p[i].y);
+	}
+	cxt.closePath();
+	cxt.fillStyle=obj.color;
+	cxt.fill();
+	
+	cxt.strokeStyle="#000";
+	cxt.lineWidth=3
+	cxt.stroke();
+
+	
+}
+</script>
+</head>
+
+<body>
+<canvas id="canvas"  width="1024" height="1000" style="border:1px solid red; margin:50px;"></canvas>
+</body>
+</html>

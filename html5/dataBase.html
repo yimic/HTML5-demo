@@ -1,0 +1,79 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<script>
+window.onload=function()
+{
+	if(window.openDatabase)
+	{
+		//创建数据库
+		var database=openDatabase("student","1.0","学生数据库",1024*1024,function()
+		{
+			
+		})
+		if(database)
+		{
+			alert("数据库创建成功")
+		}
+		else
+		{
+			alert("数据库创建失败")
+		}
+		database.transaction(
+		function(tx)
+		{
+			tx.executeSql(
+			"create table if not exists stu(id REAL UNIQUE, name TEXT)",
+			[],
+			function(tx,result){alert("表创建成功")},
+			function(tx,error){alert("表创建失败")}
+						 );
+		}
+							);
+							
+		//增加数据
+		database.transaction(function(tx)
+		{
+			tx.executeSql(
+				"insert into stu(name) values ('呵呵')",
+				[],
+				function()
+				{alert("添加数据成功")},
+				function()
+				{alert("添加数据失败")}
+			)
+		});
+		//修改数据
+		database.transaction(function(tx)
+		{
+			tx.executeSql(
+				"update stu set name=? where id=?",
+				["嘿嘿",1],
+				function()
+				{alert("s数据修改成功")},
+				function()
+				{alert("数据修改失败")}
+			)
+		});
+		//查询数据
+		database.transaction(function(tx)
+		{
+			tx.executeSql(
+				"select * from stu where id=1",
+				[],
+				function(tx,result)
+				{alert(result.rows.length)},
+				function()
+				{alert("，数据查询失败")}
+			)
+		})
+	}
+}
+</script>
+</head>
+
+<body>
+</body>
+</html>

@@ -1,0 +1,63 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<script>
+window.onload=function()
+{
+
+function ajax(url,fnSucc,fnFaild)
+{
+			//创建Ajax对象
+		if(window.XMLHttpRequest)
+		{
+			var oAjax=new XMLHttpRequest();
+		}
+		else
+		{
+			var oAjax=new ActiveXObject("Microsoft.XMLHTTP");
+		}
+		//连接服务器
+		oAjax.open('GET',url,true);
+		//发送请求
+		oAjax.send();
+		//接受返回值
+		oAjax.onreadystatechange=function()
+		{
+			if(oAjax.readyState==4)
+			{
+				if(oAjax.status==200)
+				{
+					fnSucc(oAjax.responseText);
+				}
+				else
+				{
+					if(fnFaild)
+					{
+						fnFaild();
+					}
+				}
+			}
+		}
+
+}
+	var oBut=document.getElementById("but");
+	oBut.onclick=function()
+	{
+		ajax('a.txt',function(str)
+		{
+			alert(str)
+		},function()
+		{
+			alert("失败")
+		})
+	}
+}
+</script>
+</head>
+
+<body>
+<input type="button" id="but" value="读取" />
+</body>
+</html>

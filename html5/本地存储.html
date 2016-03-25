@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>无标题文档</title>
+<script>
+window.onload=function()
+{
+	var oBox=document.getElementById("box");
+	var oName=document.getElementById("name");
+	var oPass=document.getElementById("pass");
+	if(localStorage.getItem(oName)&&localStorage.getItem(oPass))
+	{
+		oName.value=localStorage.getItem(oName)
+		oPass.value=localStorage.getItem(oPass)
+		oBox.checked="checked";
+	}
+	oBox.onclick=function()
+	{
+		if(oBox.checked==true)
+		{
+			localStorage.setItem(oName,oName.value);
+			localStorage.setItem(oPass,oPass.value);
+		}
+		else
+		{
+			localStorage.removeItem(oName);
+			localStorage.removeItem(oPass);
+		}
+	}
+}
+</script>
+</head>
+
+<body>
+用户名<input type="text" placeholder="用户名" id="name" ><br>
+密码<input type="password" id="pass"><br>
+自动登录：<input type="checkbox" id="box">
+</body>
+</html>
